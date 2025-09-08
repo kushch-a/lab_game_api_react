@@ -1,0 +1,19 @@
+# Візьмемо легкий Node образ
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Копіюємо package.json та package-lock.json
+COPY package*.json ./
+
+# Встановлюємо всі залежності (включно з devDependencies)
+RUN npm install
+
+# Копіюємо решту файлів
+COPY . .
+
+# Виставляємо порт для Vite
+EXPOSE 5173
+
+# Команда для запуску dev сервера Vite
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
